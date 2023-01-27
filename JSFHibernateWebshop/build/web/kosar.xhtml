@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+      <h:form>
+          <h:commandLink  value="Vásárlás folytatása" action="index"/> <br/>
+          <h:dataTable value="#{kosar.kosarList}" var="oi">
+              
+              
+              
+              <h:column>
+                    <f:facet name="header">
+                        Mennyiség
+                    </f:facet>
+                  <h:commandButton value="+" action="#{kosar.mennyNovel(oi)}"/>
+                  <h:commandButton value="-" action="#{kosar.mennyCsokkent(oi)}"/>
+                    #{oi.qty}
+                </h:column>
+              
+                <h:column>
+                    <f:facet name="header">
+                        Elődadó
+                    </f:facet>
+                    #{oi.product.artist}
+                </h:column>
+                
+                 <h:column>
+                    <f:facet name="header">
+                        Album
+                    </f:facet>
+                    #{oi.product.title}
+                </h:column>
+                
+                 <h:column>
+                    <f:facet name="header">
+                      Kiadó
+                    </f:facet>
+                    #{oi.product.company}
+                </h:column>
+  
+                           
+                 <h:column>
+                    <f:facet name="header">
+                        EgységÁr
+                    </f:facet>
+                    #{oi.product.price}
+                </h:column>
+                
+              <h:column>
+                    <f:facet name="header">
+                        Össz. Ár
+                    </f:facet>
+                  <h:outputText value="  #{oi.price} "> 
+                      <f:convertNumber minFractionDigits="2" maxFractionDigits="2" pattern="#,###"/>
+                  </h:outputText>
+                  
+                      <f:facet name="footer">
+                          <h:outputText value="  #{kosar.kosarErtek} "> 
+                      <f:convertNumber minFractionDigits="2" maxFractionDigits="2" pattern="#,###"/>
+                  </h:outputText>
+                      
+                    </f:facet>
+                </h:column>
+                
+              
+                 <h:column>
+                    <f:facet name="header">
+                     Módosítás
+                    </f:facet>
+                     <h:commandButton value="Töröl" action="#{kosar.torol(oi)}"/>
+                                      
+                </h:column>
+                
+            </h:dataTable>
+          <h:selectOneMenu value="#{kosar.kivUgyfelId}">
+              <f:selectItems value="#{kosar.ugyfelek}"
+                             var="ugyf"
+                             itemLabel="#{ugyf.name}"
+                             itemValue="#{ugyf.id}"/>
+          </h:selectOneMenu>
+          <h:commandButton value="Megrendel" action="#{kosar.megrendel()}"/> <br/>
+          #{kosar.uzenet}
+        </h:form>
+    </h:body>
+</html>
+
